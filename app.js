@@ -10,7 +10,7 @@ app.use(Express.json())
 app.use(Cors())
 
 
-Mongoose.connect("mongodb+srv://mercy1112:mercy1112@cluster0.8x8j3ya.mongodb.net/BloogApp?retryWrites=true&w=majority&appName=Cluster0")
+Mongoose.connect("mongodb+srv://sandramern23:Sandra_23@cluster0.jp0su3x.mongodb.net/blogDb?retryWrites=true&w=majority&appName=Cluster0")
 
 //SIGNIN
 app.post("/signIn",async(req,res)=>{
@@ -68,6 +68,21 @@ app.post("/signUp",(req,res)=>{
     )
 
 })
+
+//create a post
+app.post("/create",async(req,res)=>{
+    let input=req.body
+    let token =req.headers.token
+    Jwt.verify(token,"blogapp",async(error,decoded)=>{
+        if (decoded && decoded.email) {
+           let result= new postModel(input)
+            await result.save()
+            res.json({"status":"success"})
+        } else {
+            res.json({"status":"Invalid authentication"})
+        }
+    })
+    })
 
 
 app.listen(3030,()=>{
