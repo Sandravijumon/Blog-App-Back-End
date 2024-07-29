@@ -69,6 +69,21 @@ app.post("/signUp",(req,res)=>{
 
 })
 
+//create a post
+app.post("/create",async(req,res)=>{
+    let input=req.body
+    let token =req.headers.token
+    Jwt.verify(token,"blogapp",async(error,decoded)=>{
+        if (decoded && decoded.email) {
+           let result= new postModel(input)
+            await result.save()
+            res.json({"status":"success"})
+        } else {
+            res.json({"status":"Invalid authentication"})
+        }
+    })
+    })
+
 
 app.listen(3030,()=>{
     console.log("Server started")
