@@ -3,7 +3,8 @@ const Mongoose = require("mongoose")
 const Jwt = require("jsonwebtoken")
 const Bcrypt = require("bcrypt")
 const Cors = require("cors")
-
+const userModel=require("./models/users")
+const postModel = require("./models/post")
 
 let app= Express()
 app.use(Express.json())
@@ -83,6 +84,8 @@ app.post("/create",async(req,res)=>{
         }
     })
     })
+
+
 
 
 app.listen(3030,()=>{
